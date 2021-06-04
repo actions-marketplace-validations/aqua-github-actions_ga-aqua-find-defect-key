@@ -1,0 +1,13 @@
+on: push
+name: lint
+
+jobs:
+  eslint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: install deps
+        run: npm install
+      - name: run eslint
+        run: npm run eslint

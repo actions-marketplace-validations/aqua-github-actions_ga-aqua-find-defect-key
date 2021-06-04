@@ -1,0 +1,3 @@
+[submodule "lib"]
+	path = lib
+	url = git@github.com:uniqueck/ga-aqua-lib.git

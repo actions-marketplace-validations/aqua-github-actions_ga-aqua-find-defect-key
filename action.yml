@@ -1,0 +1,22 @@
+name: 'Aqua Defect Comment'
+description: 'Add a comment to a specific aqua defect.'
+branding:
+  icon: 'droplet'
+  color: 'blue'
+inputs:
+  aqua-base-url:
+    description: 'Base url for aqua rest api'
+    required: true
+    default: 'https://aqua-saas2.andagon.com/aquaWebNG/api'
+  aqua-token:
+    description: 'Bearer token for authentication against aqua cloud instance'
+    required: true
+  defect:
+    description: 'Key of the defect'
+    required: true
+  comment:
+    description: 'The comment to add'
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

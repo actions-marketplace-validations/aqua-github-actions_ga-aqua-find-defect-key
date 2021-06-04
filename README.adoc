@@ -1,0 +1,66 @@
+:icons: font
+:ga-aqua-login-version: v1.0.1
+:ga-aqua-logout-version: v1.0.0
+:ga-aqua-comment-version: v0.0.1
+:organization: aqua-github-actions
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+= https://aqua-cloud.io[Aqua] Defect Comment
+
+Add a comment / note to an aqua defect
+
+_This github actions is inspired by https://github.com/atlassian/gajira-comment[gajira-comment]_
+
+NOTE: This GitHub Action requires https://github.com/uniqueck/ga-aqua-login[Aqua Login Action]
+
+== Usage
+An example workflow to add a comment to a defect:
+
+[source, yaml, subs=attributes]
+----
+on: push
+
+name: Aqua Example
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Aqua Example
+    steps:
+    - name: Login
+      id: login
+      uses: {organization}/ga-aqua-login@{ga-aqua-login-version}
+      with:
+        aqua-base-url: ${{ secrets.AQUA_BASE_URL }}
+        aqua-username: ${{ secrets.AQUA_USERNAME }}
+        aqua-password: ${{ secrets.AQUA_PASSWORD }}
+    - name: Add a comment
+      uses: {organization}/ga-aqua-comment@{ga-aqua-comment-version}
+      with:
+        aqua-base-url: ${{ secrets.AQUA_BASE_URL }}
+        aqua-token: ${{ steps.login.outputs.token }}
+        defect: DF001268
+        comment: new
+    - name: Logout
+      uses: {organization}/ga-aqua-logout@{ga-aqua-logout-version}
+      with:
+        aqua-base-url: ${{ secrets.AQUA_BASE_URL }}
+        aqua-token: ${{ steps.login.outputs.token }}
+----
+
+== Action Spec:
+
+=== Environment variables
+- `AQUA_BASE_URL` - URL of aqua instance. Example: `https://aqua-saas2.andagon.com/aquaWebNG`
+
+=== Arguments
+- `aqua-base-url` - URL of aqua instance. Example `https://aqua-saas2.andagon.com/aquaWebNG`
+- `aqua-token` - Bearer token for authentication against aqua cloud instance.
+- `defect` - Id of defect to update
+- `comment` - Name of transition to update to e.g. (new, solved, reopened, paused, closed, in processing)
