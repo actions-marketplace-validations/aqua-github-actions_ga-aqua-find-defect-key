@@ -2,7 +2,7 @@ on: push
 name: Test on push
 jobs:
   addComment:
-    name: add comment to defect DF001268
+    name: search for defect keys on different sources
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -12,16 +12,14 @@ jobs:
         env:
           AQUA_USERNAME: ${{ secrets.AQUA_USERNAME }}
           AQUA_PASSWORD: ${{ secrets.AQUA_PASSWORD }}
-      - name: add comment
+      - name: find defect key on commits
         uses: ./
         env:
           NODE_DEBUG: http, net, stream
         with:
           aqua-token: ${{ steps.login.outputs.token }}
-          defect: DF001268
-          comment: "${{ github.event.pusher.name }} pushed to repository: ${{ github.event.repository.full_name }}"
+          from: "${{ github.event.commits }}"
       - name: logout to aqua saas instance
         uses: aqua-github-actions/ga-aqua-logout@v1.0.0
         with:
           aqua-token: ${{ steps.login.outputs.token }}
-

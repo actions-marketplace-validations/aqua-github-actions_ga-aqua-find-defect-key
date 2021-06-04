@@ -1,5 +1,5 @@
-name: 'Aqua Defect Comment'
-description: 'Add a comment to a specific aqua defect.'
+name: 'Aqua find defect key'
+description: 'Find defect keys in commit messages or branch names.'
 branding:
   icon: 'droplet'
   color: 'blue'
@@ -11,12 +11,12 @@ inputs:
   aqua-token:
     description: 'Bearer token for authentication against aqua cloud instance'
     required: true
+  from:
+    description: 'Provide a string to search for defect keys.'
+    required: true
+outputs:
   defect:
-    description: 'Key of the defect'
-    required: true
-  comment:
-    description: 'The comment to add'
-    required: true
+    description: 'Key of the found defect key. If more than one are found, than the first one is returned.'
 runs:
   using: 'node12'
   main: 'dist/index.js'

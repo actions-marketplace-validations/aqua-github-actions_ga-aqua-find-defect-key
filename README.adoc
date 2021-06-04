@@ -11,13 +11,13 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-= https://aqua-cloud.io[Aqua] Defect Comment
+= https://aqua-cloud.io[Aqua] Find Defect Key
 
-Add a comment / note to an aqua defect
+Search for defect keys on a provided string.
 
-_This github actions is inspired by https://github.com/atlassian/gajira-comment[gajira-comment]_
+_This github actions is inspired by https://github.com/atlassian/gajira-find-issue-key[gajira-find-issue-key]_
 
-NOTE: This GitHub Action requires https://github.com/uniqueck/ga-aqua-login[Aqua Login Action]
+NOTE: This GitHub Action requires https://github.com/{organization}/ga-aqua-login[Aqua Login Action]
 
 == Usage
 An example workflow to add a comment to a defect:
@@ -45,13 +45,8 @@ jobs:
       with:
         aqua-base-url: ${{ secrets.AQUA_BASE_URL }}
         aqua-token: ${{ steps.login.outputs.token }}
-        defect: DF001268
-        comment: new
-    - name: Logout
-      uses: {organization}/ga-aqua-logout@{ga-aqua-logout-version}
-      with:
-        aqua-base-url: ${{ secrets.AQUA_BASE_URL }}
-        aqua-token: ${{ steps.login.outputs.token }}
+        from: {{ github.event.commits.map(t.message).join(' ') }}
+
 ----
 
 == Action Spec:
@@ -62,5 +57,4 @@ jobs:
 === Arguments
 - `aqua-base-url` - URL of aqua instance. Example `https://aqua-saas2.andagon.com/aquaWebNG`
 - `aqua-token` - Bearer token for authentication against aqua cloud instance.
-- `defect` - Id of defect to update
-- `comment` - Name of transition to update to e.g. (new, solved, reopened, paused, closed, in processing)
+- `from` - String to search for defect keys

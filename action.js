@@ -1,4 +1,6 @@
 const Aqua = require('./lib/common/Aqua');
+const core = require('@actions/core');
+
 
 module.exports = class {
   constructor({argv}) {
@@ -7,14 +9,15 @@ module.exports = class {
       token: argv.token,
     });
 
-    this.defect = argv.defect;
-    this.comment = argv.comment;
+    this.from = argv.from;
   }
 
   async execute() {
-    await this.Aqua.addComment({
-      defect: this.defect,
-      comment: this.comment,
-    });
+    core.info('From: ' + this.from);
+    // search for defect keys on from
+
+    // search for defect on aqua
+
+    // if defect on aqua exists, return this key
   }
 };

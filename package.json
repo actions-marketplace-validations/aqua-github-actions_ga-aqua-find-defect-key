@@ -1,7 +1,7 @@
 {
-  "name": "aqua-transition",
+  "name": "aqua-find-defect-key",
   "version": "1.0.0",
-  "description": "Used to change status of defect on aqua cloud instance",
+  "description": "Used to find a defect key on a provided string",
   "main": "index.js",
   "scripts": {
     "build": "ncc build index.js --minify",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aqua-github-actions/ga-aqua-transition.git"
+    "url": "git+https://github.com/aqua-github-actions/ga-aqua-find-defect-key.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/aqua-github-actions/ga-aqua-transition/issues"
+    "url": "https://github.com/aqua-github-actions/ga-aqua-find-defect-key/issues"
   },
-  "homepage": "https://github.com/aqua-github-actions/ga-aqua-transition#readme",
+  "homepage": "https://github.com/aqua-github-actions/ga-aqua-find-defect-key#readme",
   "dependencies": {
     "@actions/core": "^1.2.7",
     "@actions/github": "^5.0.0",
