@@ -1,7 +1,7 @@
 :icons: font
 :ga-aqua-login-version: v1.0.1
 :ga-aqua-logout-version: v1.0.0
-:ga-aqua-comment-version: v0.0.1
+:ga-aqua-find-defect-key-version: v1.0.0
 :organization: aqua-github-actions
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -20,7 +20,7 @@ _This github actions is inspired by https://github.com/atlassian/gajira-find-iss
 NOTE: This GitHub Action requires https://github.com/{organization}/ga-aqua-login[Aqua Login Action]
 
 == Usage
-An example workflow to add a comment to a defect:
+An example workflow to find defect key on commits, branch name or static string:
 
 [source, yaml, subs=attributes]
 ----
@@ -40,12 +40,12 @@ jobs:
         aqua-base-url: ${{ secrets.AQUA_BASE_URL }}
         aqua-username: ${{ secrets.AQUA_USERNAME }}
         aqua-password: ${{ secrets.AQUA_PASSWORD }}
-    - name: Add a comment
-      uses: {organization}/ga-aqua-comment@{ga-aqua-comment-version}
+    - name: Find on commits
+      uses: {organization}/ga-aqua-find-defect-key@{ga-aqua-find-defect-key-version}
       with:
         aqua-base-url: ${{ secrets.AQUA_BASE_URL }}
         aqua-token: ${{ steps.login.outputs.token }}
-        from: {{ github.event.commits.map(t.message).join(' ') }}
+        from: commits
 
 ----
 
@@ -57,4 +57,4 @@ jobs:
 === Arguments
 - `aqua-base-url` - URL of aqua instance. Example `https://aqua-saas2.andagon.com/aquaWebNG`
 - `aqua-token` - Bearer token for authentication against aqua cloud instance.
-- `from` - String to search for defect keys
+- `from` - One of the following to search for defect keys: (commits, branch, or custom string)

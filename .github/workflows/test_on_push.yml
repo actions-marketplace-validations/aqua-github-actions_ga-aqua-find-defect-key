@@ -18,7 +18,24 @@ jobs:
           NODE_DEBUG: http, net, stream
         with:
           aqua-token: ${{ steps.login.outputs.token }}
-          from: "${{ github.event.commits }}"
+          from: commits
+      - name: find defect key on branch name
+        uses: ./
+        env:
+          NODE_DEBUG: http, net, stream
+        with:
+          aqua-token: ${{ steps.login.outputs.token }}
+          from: branch
+      - name: find defect key on static string
+        id: defect-key
+        uses: ./
+        env:
+          NODE_DEBUG: http, net, stream
+        with:
+          aqua-token: ${{ steps.login.outputs.token }}
+          from: This is a defect key DF001268
+      - name: show founded defect key
+        run: echo ${{ steps.defect-key.outputs.defect }}
       - name: logout to aqua saas instance
         uses: aqua-github-actions/ga-aqua-logout@v1.0.0
         with:

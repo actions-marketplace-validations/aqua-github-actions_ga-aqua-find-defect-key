@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 
+const githubEvent = require(process.env.GITHUB_EVENT_PATH);
 const Action = require('./action');
 
 async function exec() {
@@ -15,7 +16,10 @@ async function exec() {
       from: core.getInput('from'),
     };
 
-    await new Action({argv}).execute();
+    const result = await new Action({argv, githubEvent}).execute();
+    if (result) {
+      core.setOutput('defect', result.defect);
+    }
   } catch (error) {
     core.setFailed(error.toString());
   }
